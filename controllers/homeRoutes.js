@@ -6,12 +6,14 @@ router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
     const postData = await Post.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
+     attributes: ["title"]
+
+    //  [
+    //     {
+    //       // model: User,
+    //       attributes: ['name'],
+    //     },
+    //   ],
     });
 
     // Serialize data so the template can read it
@@ -57,7 +59,10 @@ router.get('/profile', withAuth, async (req, res) => {
       where:{
         userId: req.session.user_id
       }
-
+      // todo: get single route , router.get/post/:Id
+      //post.findbypk
+      //dashb
+//get single post 
     })
     const posts = postData.map((post) => post.get({ plain: true }));
 
