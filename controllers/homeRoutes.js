@@ -4,13 +4,13 @@ const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
+    // Get all post and JOIN with user data
     const postData = await Post.findAll({
-     attributes: ["title"]
+    //  attributes: ["title"]
 
     //  [
     //     {
-    //       // model: User,
+    include: {model:User}
     //       attributes: ['name'],
     //     },
     //   ],
@@ -29,27 +29,27 @@ router.get('/', async (req, res) => {
   }
 });
 
-// router.get('/project/:id', async (req, res) => {
-//   try {
-//     const projectData = await Project.findByPk(req.params.id, {
-//       include: [
-//         {
-//           model: User,
-//           attributes: ['name'],
-//         },
-//       ],
-//     });
+router.get('/post/:id', async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
 
-//     const project = projectData.get({ plain: true });
+    const post = postData.get({ plain: true });
 
-//     res.render('project', {
-//       ...project,
-//       logged_in: req.session.logged_in
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    res.render('post', {
+      ...post,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
@@ -57,7 +57,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const postData = await Post.findAll({
       where:{
-        userId: req.session.user_id
+        userId: req.session.userId
       }
       // todo: get single route , router.get/post/:Id
       //post.findbypk
