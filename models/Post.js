@@ -6,15 +6,11 @@ class Post extends Model {}
 Post.init(
   {
     
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    blog: {
-      type: DataTypes.STRING,
+    title: DataTypes.STRING,
+    blog:  DataTypes.STRING,
     },
     
-  },
+  
   {
     sequelize,
   

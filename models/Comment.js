@@ -10,9 +10,7 @@ Comment.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    blog: {
-      type: DataTypes.STRING,
-    },
+   
     
   },
   {

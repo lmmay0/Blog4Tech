@@ -1,7 +1,12 @@
 <div class="text-center">
   <h2>{{title}}</h2>
   <p>{{blog}}</p>
-  <p>Created by {{user.name}} on {{format_date createdAt}}</p>
+  {{#if comments}}
+  {{#each comments}}
+  {{title}}
+  {{/each}}
+  {{/if}}
+  {{!-- <p>Created by {{user.name}} on {{format_date createdAt}}</p> --}}
   <form class="form comment-form">
     <div class="form-group">
       <label for="comment-title">title:</label>
@@ -11,7 +16,7 @@
       <label for="comment-blog">comment:</label>
       <textarea class="form-input" type="text" id="comment-blog"> </textarea>
     </div>
-
+<input type="hidden" id="comment" name = "postId" value="{{id}}">
     <button id="add-comment" type="submit" class="btn btn-primary">Add comment!</button>
   </form>
 </div>
